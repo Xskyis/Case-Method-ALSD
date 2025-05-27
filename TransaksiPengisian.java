@@ -1,11 +1,13 @@
 public class TransaksiPengisian {
     Kendaraan kendaraan;
     BBM bbm;
-    double liter;
+    double jumlahLiter;
     double totalBayar;
-    TransaksiPengisian (Kendaraan kendaraan, BBM bbm, double liter){
+
+    public TransaksiPengisian(Kendaraan kendaraan, BBM bbm, double jumlahLiter) {
         this.kendaraan = kendaraan;
         this.bbm = bbm;
-        this.liter = liter;
+        this.jumlahLiter = jumlahLiter;
+        this.totalBayar = jumlahLiter * bbm.hargaPerLiter;
     }
 }
