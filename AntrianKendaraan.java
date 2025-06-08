@@ -2,65 +2,55 @@ public class AntrianKendaraan {
     Node head;
     Node tail;
     int size;
-    
-    public AntrianKendaraan() {
+    AntrianKendaraan (){
         head = null;
         tail = null;
         size = 0;
     }
-    
-    // Menambahkan kendaraan ke antrian (Linked List Insert Di tail)
-    public void tambahAntrian(Kendaraan kendaraan) {
+    boolean IsEmpty (){
+        if (head == null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    void TambahAntrian(Kendaraan kendaraan){
         Node newNode = new Node(kendaraan);
-        if (head == null) {
+        if (IsEmpty()){
             head = tail = newNode;
         } else {
             tail.next = newNode;
             tail = newNode;
         }
         size++;
-        System.out.println("Kendaraan " + kendaraan.platNomor + " ditambahkan ke antrian.");
+        System.out.println(">> Kendaraan Dengan Plat Nomor "+kendaraan.platNomor+" Berhasil Ditambahkan.");
     }
-    
-    // Melayani kendaraan (hapus dari antrian di head)
-    public Kendaraan layaniKendaraan() {
-        if (head == null) {
-            System.out.println("Antrian kosong!");
-            return null;
+    void TampilkanAntrian(){
+        if (IsEmpty()){
+            System.out.println("Antrian Kosong.");
+            return;
+        } 
+        System.out.println("== Daftar Antrian Kendaraan ==");
+        Node current = head;
+        int no = 1;
+        while (current != null){
+            System.out.print(no+". ");
+            current.data.tampilkanInformasi();
+            current = current.next;
+            no++;
         }
-        
+    }
+    Kendaraan layaniKendaraan (){
         Kendaraan dilayani = head.data;
         head = head.next;
-        if (head == null) {
+        if (head == null){
             tail = null;
         }
         size--;
+        System.out.println(">> Transaksi Berhasil Dicatat.");
         return dilayani;
     }
-    
-    // Menampilkan antrian (Traverse)
-    public void tampilkanAntrian() {
-        if (head == null) {
-            System.out.println("Antrian kosong.");
-            return;
-        }
-        
-        System.out.println("\n=== DAFTAR ANTRIAN KENDARAAN ===");
-        Node current = head;
-        int urutan = 1;
-        while (current != null) {
-            System.out.println(urutan + ". Plat: " + current.data.platNomor + ", Tipe: " + current.data.tipe + ", Merk: " + current.data.merk);
-            current = current.next;
-            urutan++;
-        }
-    }
-    
-    // Mendapatkan jumlah kendaraan dalam antrian
-    public int getJumlahAntrian() {
+    int jumlahAntrian(){
         return size;
-    }
-    
-    public boolean isEmpty() {
-        return head == null;
     }
 }

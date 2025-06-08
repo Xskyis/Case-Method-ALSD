@@ -1,53 +1,50 @@
 public class QueueTransaksi {
-    TransaksiPengisian[] queue;
+    TransaksiPengisian [] queue;
     int front;
     int rear;
     int size;
-    int kapasitas = 100;
-    
-    public QueueTransaksi() {
-        this.queue = new TransaksiPengisian[kapasitas];
-        this.front = 0;
-        this.rear = -1;
-        this.size = 0;
-    }
-    
-    // Menambahkan transaksi ke queue (Enqueue)
-    public void tambahTransaksi(TransaksiPengisian transaksi) {
-        if (size >= kapasitas) {
-            System.out.println("Queue transaksi penuh!");
-            return;
+    int kapasitas = 10;
+    QueueTransaksi (){
+        queue = new TransaksiPengisian[kapasitas];
+        front = 0;
+        rear = -1;
+        size = 0;
+    } 
+    boolean isEmpty (){
+        if (size == 0){
+            return true;
+        } else {
+            return false;
         }
-        
-        rear = (rear + 1);
+    }
+    boolean isFull (){
+        if (size == kapasitas){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    void tambahTransaksi (TransaksiPengisian transaksi){
+        if (isFull()){
+            System.out.println("Queue Transaksi Penuh.");
+            return;
+        } 
+        rear = rear +1 % kapasitas;
         queue[rear] = transaksi;
         size++;
-        System.out.println("Transaksi berhasil dicatat.");
-    }
-    
-    // Menampilkan riwayat transaksi
-    public void tampilkanRiwayatTransaksi() {
-        if (size == 0) {
-            System.out.println("Belum ada transaksi.");
+        
+    } 
+    void tampilkanRiwayatTransaksi(){
+        if (isEmpty()){
+            System.out.println("Belum Ada Transaksi.");
             return;
         }
-        
-        System.out.println("\n=== RIWAYAT TRANSAKSI BBM ===");
-        for (int i = 0; i < size; i++) {
-            int index = (front + i);
+        System.out.println("== Riwayat Transaksi BBM ==");
+        for (int i=0; i<size; i++){
+            int index = (front+i) % kapasitas;
             TransaksiPengisian t = queue[index];
-            System.out.println((i + 1) + ". Kendaraan: " + t.kendaraan.platNomor + 
-                             ", BBM: " + t.bbm.namaBBM + 
-                             ", Liter: " + t.jumlahLiter + 
-                             ", Total: Rp " + String.format("%.2f", t.totalBayar));
+            System.out.print((i+1)+". ");
+            t.tampilInformasi();
         }
-    }
-    
-    public boolean isEmpty() {
-        return size == 0;
-    }
-    
-    public int getSize() {
-        return size;
     }
 }
